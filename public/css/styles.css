@@ -22,23 +22,20 @@
   --font-xs: 0.85rem;
 }
 
-/******* General Styles (Mobile Base) ***************/
+/******* Layout base for sticky footer ***************/
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  margin: 1.5rem 0 0 0;
   font-family: var(--font-body);
   background-image: none;
   color: var(--standard-black);
-}
-
-h1, h2 {
-  font-family: var(--font-heading);
-  margin: 1rem 0;
-}
-
-h1 {
-  text-align: left;
-  margin-left: 0.5rem;
-  font-size: var(--font-lg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 #wrapper {
@@ -47,6 +44,8 @@ h1 {
   background-color: var(--standard-white);
   padding: 1rem;
   border-radius: 10px;
+
+  flex-grow: 1; 
 }
 
 /******* Header ***************/
@@ -212,6 +211,18 @@ nav ul li {
   text-decoration: underline;
 }
 
+/******* Headings ***************/
+h1, h2 {
+  font-family: var(--font-heading);
+  margin: 1rem 0;
+}
+
+h1 {
+  text-align: left;
+  margin-left: 0.5rem;
+  font-size: var(--font-lg);
+}
+
 /******* Footer ***************/
 footer {
   display: flex;
@@ -219,6 +230,45 @@ footer {
   color: var(--standard-black);
   border-top: 2px solid var(--standard-blue);
   margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+/******* Mobile Adjustments ***************/
+@media (max-width: 767px) {
+  body {
+    margin: 0;
+  }
+
+  h1 {
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+  }
+
+  footer {
+    margin-bottom: 0;
+    padding: 0.5rem 1rem;
+  }
+
+  .callForAction {
+    margin-top: 0; 
+  }
+
+  .card h2 {
+  margin-bottom: 0.25rem;
+  }
+
+  .list {
+    padding-left: 0.5rem; 
+  }
+
+  .list li {
+    margin-bottom: 0;      
+    line-height: 1.1;      
+    padding: 0;            
+  }
+  
 }
 
 /******* Desktop Media Query ***************/
