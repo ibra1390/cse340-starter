@@ -1,6 +1,259 @@
-/******* Change Box Model ***************/
+/******* Base Box Model ***************/
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+:root {
+  --standard-blue: #003399;
+  --standard-black: #000;
+  --standard-white: #fff;
+  --light-blue: #0099ff;
+  --dark-gray: #222;
+
+  --font-heading: "Poppins", Arial, Helvetica, sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+
+  --font-xl: 2.5rem;
+  --font-lg: 1.75rem;
+  --font-md: 1.25rem;
+  --font-sm: 1rem;
+  --font-xs: 0.85rem;
+}
+
+/******* General Styles (Mobile Base) ***************/
+body {
+  margin: 1.5rem 0 0 0;
+  font-family: var(--font-body);
+  background-image: none;
+  color: var(--standard-black);
+}
+
+h1, h2 {
+  font-family: var(--font-heading);
+  margin: 1rem 0;
+}
+
+h1 {
+  text-align: left;
+  margin-left: 0.5rem;
+  font-size: var(--font-lg);
+}
+
+#wrapper {
+  width: 95%;
+  margin: 2rem auto 3rem auto;
+  background-color: var(--standard-white);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+/******* Header ***************/
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--standard-blue);
+}
+
+.siteName a {
+  text-decoration: none;
+  color: var(--standard-black);
+  font-size: var(--font-lg);
+  font-weight: bold;
+}
+
+#tools a {
+  text-decoration: none;
+  font-size: var(--font-sm);
+  color: var(--standard-black);
+}
+
+/******* Navigation ***************/
+nav {
+  background-color: var(--dark-gray);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0;
+  padding: 0.75rem 0;
+}
+
+nav ul li {
+  color: var(--standard-white);
+  font-size: var(--font-sm);
+  font-weight: bold;
+}
+
+/******* Main Image Feature ***************/
+#vehicleMainImg {
+  position: relative;
+  width: 100%;
+  margin: 1.5rem auto;
+}
+
+#innerMainImg {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+}
+
+.overlay-box {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 0px;
+  padding-bottom: 15px;
+  width: 150px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  backdrop-filter: blur(3px); 
+  padding: 0.25rem 0.3125rem 0.625rem;
+}
+
+#productNameCall {
+  color: var(--light-blue);
+  font-size: var(--font-md);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.callMessage {
+  color: var(--light-blue);
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+.callForAction {
+  display: block;
+  margin: 1rem auto 0 auto;
+  width: 100px;
+  font-weight: bold;
+}
+
+/******* Main Content Cards ***************/
+.container {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 360px;
+  min-height: 360px;
+  background-color: var(--standard-white);
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.card .list {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.list {
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.list li {
+  font-size: var(--font-xs);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.grid-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.image-box {
+  text-align: center;
+}
+
+.image-inner-container {
+  background-color: var(--standard-blue);
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.image-box img {
+  height: 50px;
+}
+
+.image-box a {
+  display: block;
+  margin-top: 0.5rem;
+  text-decoration: none;
+  font-size: var(--font-xs);
+  color: var(--standard-black);
+}
+
+.image-box a:hover {
+  text-decoration: underline;
+}
+
+/******* Footer ***************/
+footer {
+  display: flex;
+  font-size: var(--font-xs);
+  color: var(--standard-black);
+  border-top: 2px solid var(--standard-blue);
+  margin-top: 1.5rem;
+}
+
+/******* Desktop Media Query ***************/
+@media (min-width: 768px) {
+  body {
+    background-image: url("../images/site/checkerboard.jpg");
+    margin-top: 0;
+  }
+
+  #wrapper {
+    max-width: 800px;
+    border: 3px solid var(--standard-blue);
+    border-radius: 10px;
+  }
+
+  .container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  h1 {
+    font-size: var(--font-xl);
+  }
+
+  h2 {
+    font-size: var(--font-lg);
+  }
+
+  .overlay-box {
+    top: 70px;
+    left: 60px;
+    width: 200px;
+    padding: 1rem;
+    font-size: var(--font-sm);
+    color: var(--light-blue);
+  }
 }
