@@ -57,6 +57,44 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+/* ***************************
+ *  Build Car Detail Screen (grid)
+ * ************************** */
+Util.buildCarDetailScreen = async function (car) {
+  let grid = "";
+  if (car) {
+    grid = `<div class="car-details-container">
+              <section class="left-panel-image">
+                <img src="${car.inv_image}" alt="${car.inv_make} ${car.inv_model}" class="car-image" />
+              </section>
+              <section class="right-panel-details">
+                <h2 class="title">${car.inv_make} ${car.inv_model} Details</h2>
+                <div class="detail-row price-row">
+                  <span class="label">Price:</span>
+                  <span class="value">$${car.inv_price}</span>
+                </div>
+                <div class="detail-row description-row">
+                  <p class="description-text">
+                    <span class="label">Description:</span>
+                    ${car.inv_description}
+                  </p>
+                </div>
+                <div class="detail-row color-row">
+                  <span class="label">Color:</span>
+                  <span class="value">${car.inv_color}</span>
+                </div>
+                <div class="detail-row miles-row">
+                  <span class="label">Miles:</span>
+                  <span class="value">${car.inv_miles}</span>
+                </div>
+              </section>
+            </div>`;
+  } else {
+    grid = '<p class="notice">Sorry, no matching vehicle could be found.</p>';
+  }
+  return grid;
+};
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
