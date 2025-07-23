@@ -500,3 +500,70 @@ footer a {
 }
 
 
+/******* Login Page Styles ***************/
+.login-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--standard-white);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: var(--font-sm);
+  font-family: var(--font-body);
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--standard-blue);
+  color: var(--standard-white);
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: var(--font-sm);
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #002277;
+}
+
+.flash-message {
+  max-width: 400px;
+  margin: 1rem auto;
+  color: red;
+  text-align: center;
+  font-size: var(--font-sm);
+}
+
+.login-form .register-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: var(--font-sm);
+}
+
+.login-form .register-link a {
+  color: var(--light-blue);
+  text-decoration: none;
+}
+
+.login-form .register-link a:hover {
+  text-decoration: underline;
+}
