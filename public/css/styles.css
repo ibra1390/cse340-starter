@@ -545,14 +545,6 @@ footer a {
   background-color: #002277;
 }
 
-.flash-message {
-  max-width: 400px;
-  margin: 1rem auto;
-  color: red;
-  text-align: center;
-  font-size: var(--font-sm);
-}
-
 .login-form .register-link {
   text-align: center;
   margin-top: 1rem;
@@ -668,15 +660,24 @@ footer a {
   text-decoration: underline;
 }
 
+/******* FLASH MESSAGES *******/
 .flash-message {
   max-width: 500px;
   margin: 1rem auto;
-  color: #d9534f;
-  padding: 0;
-  list-style: none;
+  padding: 1rem;
+  background-color: #fee;
+  color: #d32f2f;
+  border-left: 4px solid #d32f2f;
+  border-radius: 4px;
   font-size: var(--font-sm);
 }
 
+.flash-message ul {
+  margin: 0;
+  padding-left: 1rem;
+  list-style-type: none;
+}
+
 .flash-message li {
-  margin-bottom: 0.5rem;
+  margin: 0.3rem 0;
 }
