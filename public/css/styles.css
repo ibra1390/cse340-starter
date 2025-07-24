@@ -517,17 +517,6 @@ footer a {
   color: #333;
 }
 
-.login-form input[type="email"],
-.login-form input[type="password"] {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: var(--font-sm);
-  font-family: var(--font-body);
-}
-
 .login-button {
   width: 100%;
   padding: 0.75rem;
@@ -560,8 +549,8 @@ footer a {
   text-decoration: underline;
 }
 
-/******* Register Page ***************/
-.auth-form {
+/******* REGISTRATION FORM STYLES *******/
+.registration-form {
   max-width: 500px;
   margin: 2rem auto;
   padding: 2rem;
@@ -570,7 +559,7 @@ footer a {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.required-note {
+.required-notice {
   color: #d9534f;
   font-size: var(--font-xs);
   text-align: center;
@@ -597,21 +586,7 @@ footer a {
   font-family: var(--font-body);
 }
 
-.password-hint {
-  margin-top: 0.5rem;
-  font-size: var(--font-xs);
-  color: #555;
-}
-
-.password-hint ul {
-  margin: 0.5rem 0 0 1.5rem;
-  padding: 0;
-}
-
-.password-hint li {
-  line-height: 1.4;
-}
-
+/******* PASSWORD TOGGLE *******/
 .toggle-password-btn {
   display: block;
   margin-top: 0.5rem;
@@ -628,7 +603,25 @@ footer a {
   text-decoration: underline;
 }
 
-.auth-button {
+.password-requirements {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  font-size: var(--font-xs);
+}
+
+.password-requirements ul {
+  margin: 0.5rem 0 0 1.5rem;
+  padding: 0;
+}
+
+.password-requirements li {
+  line-height: 1.4;
+}
+
+.submit-btn {
   width: 100%;
   padding: 0.75rem;
   background-color: var(--standard-blue);
@@ -638,46 +631,40 @@ footer a {
   font-weight: bold;
   cursor: pointer;
   font-size: var(--font-sm);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.auth-button:hover {
+.submit-btn:hover {
   background-color: #002277;
 }
 
-.auth-link {
+/******* NOTICES/ERRORS *******/
+.notices {
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 1rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.notice {
+  margin-bottom: 0.25rem;
+}
+
+/******* LOGIN LINK *******/
+.login-link {
   text-align: center;
   margin-top: 1.5rem;
   font-size: var(--font-sm);
 }
 
-.auth-link a {
+.login-link a {
   color: var(--light-blue);
   text-decoration: none;
 }
 
-.auth-link a:hover {
+.login-link a:hover {
   text-decoration: underline;
-}
-
-/******* FLASH MESSAGES *******/
-.flash-message {
-  max-width: 500px;
-  margin: 1rem auto;
-  padding: 1rem;
-  background-color: #fee;
-  color: #d32f2f;
-  border-left: 4px solid #d32f2f;
-  border-radius: 4px;
-  font-size: var(--font-sm);
-}
-
-.flash-message ul {
-  margin: 0;
-  padding-left: 1rem;
-  list-style-type: none;
-}
-
-.flash-message li {
-  margin: 0.3rem 0;
 }

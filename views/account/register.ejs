@@ -4,18 +4,18 @@
   res.redirect('/');
 } %>
 
-<!-- Flash Messages -->
 <% if (errors) { %>
-  <ul class="flash-message">
-    <% errors.array().forEach(error => { %>
-      <li><%= error.msg %></li>
-    <% }) %>
-  </ul>
+  <div class="notices">
+    <ul>
+      <% errors.array().forEach(error => { %>
+        <li class="notice"><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
 <% } %>
 
-<!-- Registration Form -->
-<form action="/account/register" method="post" class="auth-form">
-  <p class="required-note">*All fields are required.</p>
+<form action="/account/register" method="post" class="registration-form">
+  <p class="required-notice">*All fields are required.</p>
 
   <!-- First Name -->
   <div class="form-group">
@@ -25,7 +25,6 @@
       name="account_firstname" 
       id="account_firstname" 
       required 
-      placeholder="John" 
       value="<%= locals.account_firstname || '' %>"
     >
   </div>
@@ -38,7 +37,6 @@
       name="account_lastname" 
       id="account_lastname" 
       required 
-      placeholder="Doe" 
       value="<%= locals.account_lastname || '' %>"
     >
   </div>
@@ -51,7 +49,6 @@
       name="account_email" 
       id="account_email" 
       required 
-      placeholder="john@example.com" 
       value="<%= locals.account_email || '' %>"
     >
   </div>
@@ -63,30 +60,28 @@
       type="password" 
       name="account_password" 
       id="account_password" 
-      required 
-      placeholder="••••••••••••" 
+      required
       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}"
-      title="Must contain: 12+ chars, 1 uppercase, 1 number, 1 special char"
     >
-    <button type="button" id="toggle-password" class="toggle-password-btn">Show Password</button>
-    <div class="password-hint">
-      <strong>Password must:</strong>
+    <button type="button" id="toggle-password" class="toggle-password-btn">
+      Show Password 
+    </button>
+    <div class="password-requirements">
+      <p><strong>Password must meet these requirements:</strong></p>
       <ul>
-        <li>Be 12+ characters</li>
-        <li>Include 1 uppercase letter</li>
-        <li>Include 1 number</li>
-        <li>Include 1 special character</li>
+        <li>Minimum 12 characters</li>
+        <li>At least 1 uppercase letter</li>
+        <li>At least 1 number</li>
+        <li>At least 1 special character</li>
       </ul>
     </div>
   </div>
 
-  <button type="submit" class="auth-button">Register</button>
+  <button type="submit" class="submit-btn">Register</button>
 </form>
 
-<!-- Login Link -->
-<div class="auth-link">
-  <p>Already have an account? <a href="/account/login">Log in here</a>.</p>
+<div class="login-link">
+  <p>Already have an account? <a href="/account/login">Login</a></p>
 </div>
 
-<!-- Toggle password Script -->
 <script src="/js/togglePassword.js"></script>
