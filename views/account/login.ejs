@@ -3,11 +3,22 @@
     <% } else {
         res.redirect('/')
     } %>
-    
+
+
 <!-- Flash Message -->
 <div class="flash-message">
   <%- messages() %>
 </div>
+
+<% if (errors) { %>
+  <div class="notices">
+    <ul>
+      <% errors.array().forEach(error => { %>
+        <li class="notice"><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
 
 <!-- Login Form -->
 <form action="/account/login" method="post" class="login-form">
