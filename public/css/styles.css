@@ -382,7 +382,7 @@ textarea:valid,
   margin-top: 0.5rem;
   background: none;
   border: none;
-  color: var(--light-blue);
+  color: #0066cc;
   font-size: var(--font-xs);
   cursor: pointer;
   padding: 0;
@@ -421,7 +421,7 @@ textarea:valid,
 
 .login-link a,
 .login-form .register-link a {
-  color: var(--light-blue);
+  color: #0066cc;
   text-decoration: none;
 }
 
