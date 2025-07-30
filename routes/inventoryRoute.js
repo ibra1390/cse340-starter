@@ -42,5 +42,9 @@ router.post("/add-inventory",
   utilities.handleErrors(invController.addInventory)
 );
 
+// Get inventory for AJAX Route, Select inv item activity
+router.get("/getInventory/:classification_id", 
+  utilities.handleErrors(invController.getInventoryJSON)
+);
 
 module.exports = router;
