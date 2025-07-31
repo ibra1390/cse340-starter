@@ -95,13 +95,19 @@ async function accountLogin(req, res) {
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
       delete accountData.account_password
-      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
-      if(process.env.NODE_ENV === 'development') {
-        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
-      } else {
-        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
-      }
-      return res.redirect("/account/")
+      const payload = {
+      account_id: accountData.account_id,
+      account_firstname: accountData.account_firstname, // <- Clave para el header
+      account_email: accountData.account_email
+    };
+    
+    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 });
+    res.cookie("jwt", token, { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV !== 'development',
+      maxAge: 3600 * 1000 
+    });
+    return res.redirect("/account/");
     }
     else {
       req.flash("message notice", "Please check your credentials and try again.")
