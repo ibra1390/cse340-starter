@@ -132,7 +132,25 @@ async function buildManagement(req, res, next) {
     title: "Account Management",
     nav,
     errors: null,
+    loggedin: res.locals.loggedin,       
+    accountData: res.locals.accountData
   })
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement }
+/* ****************************************
+ *  Process logout request
+ * ************************************ */
+async function accountLogout(req, res) {
+  res.clearCookie("jwt");
+  req.flash("success", "You have been logged out.");
+  res.redirect("/");
+}
+
+module.exports = { 
+  buildLogin, 
+  buildRegister, 
+  registerAccount, 
+  accountLogin, 
+  buildManagement,
+  accountLogout
+};

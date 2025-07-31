@@ -154,6 +154,21 @@ Util.checkJWTToken = (req, res, next) => {
  }
 
 /* ****************************************
+*  Middleware to check account type
+* ************************************ */
+Util.checkAccountType = (requiredType) => {
+  return (req, res, next) => {
+    const accountType = res.locals.accountData?.account_type;
+    if (accountType === requiredType || accountType === "Employee" || accountType === "Admin") {
+      next();
+    } else {
+      req.flash("notice", "Access denied. Requires Employee or Admin privileges.");
+      res.redirect("/account/login");
+    }
+  };
+};
+
+/* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling

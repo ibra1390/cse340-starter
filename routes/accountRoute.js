@@ -27,6 +27,13 @@ router.post(
   utilities.handleErrors(accountController.accountLogin)
 )
 
+// Route to process logout
+router.get(
+  "/logout", 
+  utilities.checkLogin, 
+  utilities.handleErrors(accountController.accountLogout)
+);
+
 // Route to account management view
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
