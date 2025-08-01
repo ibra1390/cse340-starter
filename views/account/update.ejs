@@ -1,0 +1,95 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { 
+  res.redirect('/account');
+} %>
+
+<% if (errors) { %>
+  <div class="notices">
+    <ul>
+      <% errors.forEach(error => { %>
+        <li class="notice"><%= error.msg || error %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
+<!-- FORM 1: Update Account -->
+<form action="/account/update/<%= account.account_id %>" method="post" class="registration-form">
+  <h2>Edit Account</h2>
+  <input type="hidden" name="account_id" value="<%= account.account_id %>">
+
+  <!-- First Name -->
+  <div class="form-group">
+    <label for="account_firstname">First Name:</label>
+    <input 
+      type="text" 
+      name="account_firstname" 
+      id="account_firstname" 
+      required 
+      value="<%= account.account_firstname %>"
+    >
+  </div>
+
+  <!-- Last Name -->
+  <div class="form-group">
+    <label for="account_lastname">Last Name:</label>
+    <input 
+      type="text" 
+      name="account_lastname" 
+      id="account_lastname" 
+      required 
+      value="<%= account.account_lastname %>"
+    >
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <label for="account_email">Email:</label>
+    <input 
+      type="email" 
+      name="account_email" 
+      id="account_email" 
+      required 
+      value="<%= account.account_email %>"
+    >
+  </div>
+
+  <button type="submit" class="submit-btn">Update</button>
+</form>
+
+<!-- FORM 2: Update Password -->
+<form action="/account/update-password/<%= account.account_id %>" method="post" class="registration-form">
+  <h2>Update Password</h2>
+  <input type="hidden" name="account_id" value="<%= account.account_id %>">
+
+  <div class="form-group">
+    <label for="account_password">New Password:</label>
+
+    <p class="required-notice"><strong>*Note your original password will be changed.</strong></p>
+    <input 
+      type="password" 
+      name="account_password" 
+      id="account_password" 
+      required
+      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}"
+    >
+    <button type="button" id="toggle-password" class="toggle-password-btn">
+      Show Password 
+    </button>
+    <div class="password-requirements">
+      <p><strong>Password must meet these requirements:</strong></p>
+      <ul>
+        <li>Minimum 12 characters</li>
+        <li>At least 1 uppercase letter</li>
+        <li>At least 1 number</li>
+        <li>At least 1 special character</li>
+      </ul>
+    </div>
+  </div>
+
+  <button type="submit" class="submit-btn">Change Password</button>
+</form>
+
+
+<script src="/js/togglePassword.js"></script>

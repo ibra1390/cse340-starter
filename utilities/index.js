@@ -128,13 +128,15 @@ Util.checkJWTToken = (req, res, next) => {
     if (err) {
      req.flash("Please log in")
      res.clearCookie("jwt")
+     res.locals.loggedin = false;
      return res.redirect("/account/login")
     }
     res.locals.accountData = accountData
-    res.locals.loggedin = 1
+    res.locals.loggedin = true;
     next()
    })
  } else {
+  res.locals.loggedin = false;
   next()
  }
 }
@@ -150,6 +152,23 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+/* ****************************************
+*  Middleware to check account type
+* ************************************ */
+Util.checkEmployeeOrAdmin = async (req, res, next) => { 
+  const accountType = res.locals.accountData?.account_type;
+  if (accountType === "Employee" || accountType === "Admin") {
+    next();
+  } else {
+    req.flash("notice", "Access denied. Requires Employee or Admin privileges.");
+    res.status(403).render("account/login", {
+      title: "Login",
+      nav: await Util.getNav(), 
+      errors: null,
+    });
+  }
+};
 
 /* ****************************************
  * Middleware For Handling Errors

@@ -19,54 +19,75 @@ router.get("/error/:errParam", invController.linkError)
  * ************************** */
 
 // Route to Management View (Task 1)
-router.get("/", utilities.handleErrors(invController.buildManagementView));
+router.get("/",
+  utilities.checkLogin,          
+  utilities.checkEmployeeOrAdmin,  
+  utilities.handleErrors(invController.buildManagementView)
+);
 
 // Add Classification View (Task 2)
-router.get("/add-classification", utilities.handleErrors(invController.newClassificationView));
+router.get("/add-classification",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
+  utilities.handleErrors(invController.newClassificationView)
+);
 
 // Process Classification (Task 2)
 router.post("/add-classification",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
   invValidate.classificationRules(),
   invValidate.checkClassificationData,
   utilities.handleErrors(invController.addClassification)
 );
 
 // Add Inventory View (Task 3)
-router.get("/add-inventory", utilities.handleErrors(invController.newInventoryView)
+router.get("/add-inventory",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
+  utilities.handleErrors(invController.newInventoryView)
 );
 
 // Process Inventory (Task 3)
 router.post("/add-inventory",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
   invValidate.inventoryRules(),
   invValidate.checkInventoryData,
   utilities.handleErrors(invController.addInventory)
 );
-
 // Route to display inventory in management view
 router.get("/getInventory/:classification_id", 
   utilities.handleErrors(invController.getInventoryJSON)
 );
 
 // Route to build edit inventory view
-router.get("/edit/:invId", 
+router.get("/edit/:invId",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
   utilities.handleErrors(invController.editInventoryView)
 );
 
 // Process edit inventory submission
-router.post("/update/", 
+router.post("/update/",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
   invValidate.inventoryRules(),
   invValidate.checkUpdateData,
   utilities.handleErrors(invController.updateInventory)
 );
-  
+
 // Route to build delete inventory view
-router.get("/delete/:invId", 
+router.get("/delete/:invId",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
   utilities.handleErrors(invController.deleteInventoryView)
 );
 
 // Process delete inventory submission
-router.post(
-  "/delete",
+router.post("/delete",
+  utilities.checkLogin,
+  utilities.checkEmployeeOrAdmin, 
   utilities.handleErrors(invController.deleteInventory)
 );
 
