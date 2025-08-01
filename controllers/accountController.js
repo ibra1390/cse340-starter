@@ -148,11 +148,28 @@ async function accountLogout(req, res) {
   res.redirect("/");
 }
 
+/* ****************************************
+*  Deliver account update view (Task 4)
+* *************************************** */
+async function buildUpdate(req, res, next) {
+  const accountId = req.params.id;
+  const accountData = await accountModel.getAccountById(accountId);
+  let nav = await utilities.getNav();
+  res.render("account/update-view", {
+    title: "Edit Account",
+    nav,
+    errors: null,
+    accountData
+  });
+}
+
+
 module.exports = { 
   buildLogin, 
   buildRegister, 
   registerAccount, 
   accountLogin, 
   buildManagement,
-  accountLogout
+  accountLogout,
+  buildUpdate
 };

@@ -37,5 +37,10 @@ router.get(
 // Route to account management view
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
+// Route to deliver account update view
+router.get("/update/:id",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildUpdate)
+);
 
 module.exports = router;

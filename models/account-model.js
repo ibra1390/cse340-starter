@@ -39,5 +39,26 @@ async function getAccountByEmail (account_email) {
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail }
+/* *****************************
+*  Get account by ID
+* *************************** */
+async function getAccountById(accountId) {
+  try {
+    const result = await pool.query(
+      'SELECT account_id, account_firstname, account_lastname, account_email FROM account WHERE account_id = $1',
+      [accountId]
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error fetching account by ID: ", error);
+    return null;
+  }
+}
+
+module.exports = { 
+  registerAccount, 
+  checkExistingEmail, 
+  getAccountByEmail,
+  getAccountById
+}
 
