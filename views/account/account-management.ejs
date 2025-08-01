@@ -1,10 +1,26 @@
 <h1><%= title %></h1>
-    
+
 <%- messages() %>
 
 <% if (loggedin) { %>
-  <h2>Welcome <%= accountData.account_firstname %></h2>
-  <p>You're logged in.</p>
-<% } else { %>
-  <p>Please log in to access this page.</p>
+  <div class="account-management">
+    <!-- 1. Greeting (for ALL users) -->
+    <h2>Welcome <%= accountData.account_firstname %></h2>
+    <p>You're logged in.</p> <!-- Tu línea original -->
+
+    <!-- 2. Update link (REQUIRED for all) -->
+    <p>
+      <a href="/account/update/<%= accountData.account_id %>" class="update-link">
+        Update Account Information
+      </a>
+    </p>
+
+    <!-- 3. Inventory section (ONLY for Employee/Admin) -->
+    <% if (accountData.account_type === "Employee" || accountData.account_type === "Admin") { %>
+      <div class="inventory-section">
+        <h3>Inventory Management</h3> <!-- h3 como requiere el task -->
+        <p><a href="/inv" class="inventory-link">Manage Inventory</a></p> <!-- Cambiado a /inv -->
+      </div>
+    <% } %>
+  </div>
 <% } %>
