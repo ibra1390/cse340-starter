@@ -81,10 +81,10 @@ async function updatePassword(account_id, hashedPassword) {
       `UPDATE account 
        SET account_password = $1 
        WHERE account_id = $2 
-       RETURNING account_id, account_type`, // ← Devuelve datos importantes
+       RETURNING account_id, account_type`, 
       [hashedPassword, account_id]
     );
-    return result.rows[0]; // ← Retorna el resultado
+    return result.rows[0]; 
   } catch (error) {
     console.error("Error in updatePassword:", error);
     throw error;

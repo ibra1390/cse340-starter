@@ -6,7 +6,7 @@
   <div class="account-management">
     <!-- 1. Greeting (for ALL users) -->
     <h2>Welcome <%= accountData.account_firstname %></h2>
-    <p>You're logged in.</p> <!-- Tu línea original -->
+    <p>You're logged in.</p> 
 
     <!-- 2. Update link (REQUIRED for all) -->
     <p>
@@ -18,8 +18,8 @@
     <!-- 3. Inventory section (ONLY for Employee/Admin) -->
     <% if (accountData.account_type === "Employee" || accountData.account_type === "Admin") { %>
       <div class="inventory-section">
-        <h3>Inventory Management</h3> <!-- h3 como requiere el task -->
-        <p><a href="/inv" class="inventory-link">Manage Inventory</a></p> <!-- Cambiado a /inv -->
+        <h3>Inventory Management</h3> 
+        <p><a href="/inv" class="inventory-link">Manage Inventory</a></p> 
       </div>
     <% } %>
   </div>
