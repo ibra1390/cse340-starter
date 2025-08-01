@@ -43,4 +43,22 @@ router.get("/update/:id",
   utilities.handleErrors(accountController.buildUpdate)
 );
 
+// Process account update
+router.post(
+  "/update/:id",
+  utilities.checkLogin,
+  regValidate.updateRules(), 
+  regValidate.checkUpdateData,
+  utilities.handleErrors(accountController.accountUpdate)
+);
+
+// Process password change
+router.post(
+  "/update-password/:id",
+  utilities.checkLogin,
+  regValidate.passwordUpdateRules(), 
+  regValidate.checkPasswordUpdate,
+  utilities.handleErrors(accountController.passwordUpdate)
+);
+
 module.exports = router;
