@@ -16,7 +16,6 @@
 
 <!-- FORM 1: Update Account -->
 <form action="/account/update/<%= account.account_id %>" method="post" class="registration-form">
-  <h2>Edit Account</h2>
   <input type="hidden" name="account_id" value="<%= account.account_id %>">
 
   <!-- First Name -->
@@ -64,9 +63,10 @@
   <input type="hidden" name="account_id" value="<%= account.account_id %>">
 
   <div class="form-group">
-    <label for="account_password">New Password:</label>
 
     <p class="required-notice"><strong>*Note your original password will be changed.</strong></p>
+
+    <label for="account_password">New Password:</label>
     <input 
       type="password" 
       name="account_password" 
