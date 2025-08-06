@@ -1,28 +1,32 @@
 <% if (title) { %>
   <h1><%= title %></h1>
-<% } else {
-  res.redirect('/account');
-} %>
+<% } %>
 
 <%- messages() %>
 
-<% if (errors) { %>
-  <div class="notices">
-    <ul>
-      <% errors.forEach(error => { %>
-        <li class="notice"><%= error.msg || error %></li>
-      <% }) %>
-    </ul>
-  </div>
-<% } %>
-
-<form action="/review/update" method="post" class="registration-form">
+<form action="/review/update" method="POST" class="review-form">
   <input type="hidden" name="review_id" value="<%= review_id %>">
   
   <div class="form-group">
     <label for="review_text">Review:</label>
-    <textarea name="review_text" id="review_text" required><%= review_text %></textarea>
+    <textarea 
+      name="review_text" 
+      id="review_text" 
+      required
+      minlength="10"
+      class="<%= (errors && errors.find(e => e.param === 'review_text')) ? 'is-invalid' : '' %>"
+    ><%= review_text %></textarea>
+    <% if (errors && errors.find(e => e.param === 'review_text')) { %>
+      <div class="invalid-feedback">
+        <%= errors.find(e => e.param === 'review_text').msg %>
+      </div>
+    <% } else { %>
+      <small class="form-text text-muted">Minimum 10 characters required</small>
+    <% } %>
   </div>
 
-  <button type="submit" class="submit-btn">Update Review</button>
+  <div class="form-actions">
+    <button type="submit" class="submit-btn">Update Review</button>
+    <a href="/account/" class="cancel-btn">Cancel</a>
+  </div>
 </form>

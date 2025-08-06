@@ -52,10 +52,23 @@ async function getReviewsByAccountId(account_id) {
  * ************************** */
 async function updateReview(review_id, review_text) {
   try {
-    const sql = "UPDATE review SET review_text = $1 WHERE review_id = $2 RETURNING *";
-    return await pool.query(sql, [review_text, review_id]);
+    const sql = `
+      UPDATE review 
+      SET review_text = $1, 
+          review_date = NOW()
+      WHERE review_id = $2
+      RETURNING *`;
+    
+    const result = await pool.query(sql, [review_text, review_id]);
+    
+    if (result.rowCount === 0) {
+      throw new Error("No rows were updated - review may not exist");
+    }
+    
+    return result.rows[0];
   } catch (error) {
-    return error.message;
+    console.error("Database error in updateReview:", error);
+    throw error;
   }
 }
 
@@ -65,9 +78,29 @@ async function updateReview(review_id, review_text) {
 async function deleteReview(review_id) {
   try {
     const sql = "DELETE FROM review WHERE review_id = $1 RETURNING *";
-    return await pool.query(sql, [review_id]);
+    const result = await pool.query(sql, [review_id]);
+    return result.rowCount > 0;
   } catch (error) {
-    return error.message;
+    console.error("Error deleting review:", error);
+    throw error;
+  }
+}
+
+/* ***************************
+ *  Get single review by ID
+ * ************************** */
+async function getReviewById(review_id) {
+  try {
+    const sql = `
+      SELECT r.*, a.account_firstname, a.account_lastname 
+      FROM review r
+      JOIN account a ON r.account_id = a.account_id
+      WHERE r.review_id = $1`;
+    const result = await pool.query(sql, [review_id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error getting review by ID:", error);
+    throw error;
   }
 }
 
@@ -76,5 +109,6 @@ module.exports = {
   getReviewsByInventoryId,
   getReviewsByAccountId,
   updateReview,
-  deleteReview
+  deleteReview,
+  getReviewById
 };

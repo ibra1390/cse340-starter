@@ -818,6 +818,46 @@ textarea:valid,
   padding: 1rem;
 }
 
+/* Review Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submit-btn {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: var(--standard-blue);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #002277;
+}
+
+.cancel-btn {
+  flex: 1;
+  padding: 0.75rem;
+  text-align: center;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+  color: white;
+}
+
 /******* Responsive Layouts ***************/
 @media (max-width: 490px) {
   .card {
