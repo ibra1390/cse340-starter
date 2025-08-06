@@ -4,6 +4,45 @@
   res.redirect('/')
 } %>
 
-<%# messages() %>
-
 <%- grid %>
+
+<!-- Sección de Reviews -->
+<% if (typeof reviews !== 'undefined' && reviews.length > 0) { %>
+  <section class="reviews-section">
+    <h2>Reviews</h2>
+    <div class="reviews-container">
+      <% reviews.forEach(review => { %>
+        <div class="review">
+          <p class="review-text"><%= review.review_text %></p>
+          <p class="review-meta">
+            By: <%= review.account_firstname.charAt(0) %>. <%= review.account_lastname %> 
+            on <%= new Date(review.review_date).toLocaleDateString() %>
+          </p>
+          <% if (loggedin && accountData.account_id == review.account_id) { %>
+            <div class="review-actions">
+              <a href="/review/edit/<%= review.review_id %>">Edit</a> | 
+              <a href="/review/delete/<%= review.review_id %>">Delete</a>
+            </div>
+          <% } %>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+<% } %>
+
+<% if (typeof inv_id !== 'undefined') { %>
+  <% if (loggedin) { %>
+    <section class="add-review-section">
+      <h3>Add Your Review</h3>
+      <form action="/review/add" method="post" class="review-form">
+        <input type="hidden" name="inv_id" value="<%= inv_id %>">
+        <div class="form-group">
+          <textarea name="review_text" id="review_text" required placeholder="Write your review here..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit Review</button>
+      </form>
+    </section>
+  <% } else { %>
+    <p class="login-to-review"><a href="/account/login">Log in</a> to leave a review.</p>
+  <% } %>
+<% } %>

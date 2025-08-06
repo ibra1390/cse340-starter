@@ -684,6 +684,140 @@ textarea:valid,
   border: 1px solid #eee;
 }
 
+/* ======================
+   REVIEWS GLOBAL STYLES
+   ====================== */
+
+/* Reviews section for all views */
+.reviews-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+/* Reviews list container */
+.reviews-container,
+.user-reviews-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual review items */
+.review,
+.user-review-item {
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Review text */
+.review-text {
+  margin: 0.75rem 0;
+  color: #495057;
+  line-height: 1.5;
+}
+
+/* Reviewer's name and review's date */
+.review-meta,
+.review-vehicle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.review-date {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+/* ======================
+   REVIEW FORM STYLES
+   ====================== */
+
+.add-review-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px dashed #adb5bd;
+}
+
+.review-form {
+  margin-top: 1rem;
+}
+
+.review-form textarea {
+  min-height: 120px;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.login-to-review {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.login-to-review a {
+  color: var(--standard-blue);
+  text-decoration: none;
+}
+
+/* ======================
+   REVIEW ACTIONS STYLES
+   ====================== */
+
+.review-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* ======================
+   ACCOUNT SPECIFIC STYLES
+   ====================== */
+
+.user-reviews-section {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e9ecef;
+}
+
+.no-reviews {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}
+
 /******* Responsive Layouts ***************/
 @media (max-width: 490px) {
   .card {
@@ -741,6 +875,16 @@ textarea:valid,
   #inv-display {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
+
+  .review,
+  .user-review-item {
+    padding: 1rem;
+  }
+  
+  .review-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 @media (min-width: 811px) {
@@ -792,6 +936,18 @@ textarea:valid,
 
   .management-menu li {
     width: 100%;
+  }
+
+  .review-meta,
+  .review-vehicle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .user-reviews-section {
+    margin-top: 2rem;
+    padding: 1rem;
   }
 }
 
