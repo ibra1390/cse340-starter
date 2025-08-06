@@ -24,14 +24,14 @@
     <% } %>
 
     <!-- 4. User Reviews Section -->
-    <div class="user-reviews">
+    <div class="user-reviews-section">
       <h3>Your Reviews</h3>
       
       <% if (locals.reviews && locals.reviews.rows && locals.reviews.rows.length > 0) { %>
-        <ul class="review-list">
+        <ul class="user-reviews-list">
           <% locals.reviews.rows.forEach(review => { %>
-            <li class="review-item">
-              <div class="review-header">
+            <li class="user-review-item">
+              <div class="review-vehicle">
                 <strong><%= review.inv_make %> <%= review.inv_model %></strong>
                 <span class="review-date"><%= new Date(review.review_date).toLocaleDateString() %></span>
               </div>

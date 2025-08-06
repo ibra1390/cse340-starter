@@ -131,16 +131,22 @@ async function accountLogin(req, res) {
 * *************************************** */
 async function buildManagement(req, res, next) {
   let nav = await utilities.getNav();
-  const reviews = await reviewModel.getReviewsByAccountId(res.locals.accountData.account_id);
   
-  res.render("account/account-management", {
-    title: "Account Management",
-    nav,
-    errors: null,
-    loggedin: res.locals.loggedin,
-    accountData: res.locals.accountData,
-    reviews // Pasar las reviews a la vista
-  });
+  try {
+    const reviews = await reviewModel.getReviewsByAccountId(res.locals.accountData.account_id);
+    
+    res.render("account/account-management", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      loggedin: res.locals.loggedin,
+      accountData: res.locals.accountData,
+      reviews: reviews.rows 
+    });
+  } catch (error) {
+    req.flash("error", "Error loading your reviews");
+    res.redirect("/account/login");
+  }
 }
 
 /* ****************************************

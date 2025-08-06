@@ -42,7 +42,8 @@ async function getReviewsByAccountId(account_id) {
       ORDER BY r.review_date DESC`;
     return await pool.query(sql, [account_id]);
   } catch (error) {
-    return error.message;
+    console.error("Error getting reviews by account:", error);
+    throw error;
   }
 }
 
