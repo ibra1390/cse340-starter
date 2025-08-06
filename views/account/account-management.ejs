@@ -27,9 +27,9 @@
     <div class="user-reviews-section">
       <h3>Your Reviews</h3>
       
-      <% if (locals.reviews && locals.reviews.rows && locals.reviews.rows.length > 0) { %>
+      <% if (reviews && reviews.length > 0) { %>
         <ul class="user-reviews-list">
-          <% locals.reviews.rows.forEach(review => { %>
+          <% reviews.forEach(review => { %>
             <li class="user-review-item">
               <div class="review-vehicle">
                 <strong><%= review.inv_make %> <%= review.inv_model %></strong>
