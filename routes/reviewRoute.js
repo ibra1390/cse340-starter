@@ -33,10 +33,6 @@ router.post(
 router.get(
   "/delete/:review_id",
   utilities.checkLogin,
-  (req, res, next) => {
-    console.log("Delete route hit with ID:", req.params.review_id); // Log de depuración
-    next();
-  },
   utilities.handleErrors(reviewController.buildDeleteReview)
 );
 

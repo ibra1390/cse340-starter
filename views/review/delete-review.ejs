@@ -4,12 +4,11 @@
 
 <%- messages() %>
 
+
 <div class="delete-confirmation">
   <p class="warning-notice">Confirm Deletion - This action cannot be undone.</p>
   
   <form action="/review/delete" method="POST" class="review-form">
-    <input type="hidden" name="review_id" value="<%= review_id %>">
-    
     <div class="review-display">
       <div class="form-group">
         <label>Review Text:</label>
@@ -46,6 +45,5 @@
 
     <input type="hidden" name="review_id" value="<%= review_id %>">
     <input type="hidden" name="inv_id" value="<%= inv_id %>">
-    <input type="hidden" name="account_id" value="<%= account_id %>">
   </form>
 </div>

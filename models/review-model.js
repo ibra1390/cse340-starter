@@ -71,20 +71,14 @@ async function updateReview(review_id, review_text) {
 }
 
 /* ***************************
- *  Delete review
+ *  Delete Review from Database
  * ************************** */
 async function deleteReview(review_id) {
   try {
-    console.log("Deleting review with ID:", review_id); // Debug
-    
     const sql = "DELETE FROM review WHERE review_id = $1 RETURNING *";
     const result = await pool.query(sql, [review_id]);
-    
-    console.log("Delete result:", result.rowCount); // Debug
-    
     return result.rowCount > 0;
   } catch (error) {
-    console.error("Database error in deleteReview:", error);
     throw error;
   }
 }
