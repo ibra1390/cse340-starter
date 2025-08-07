@@ -60,12 +60,8 @@ async function updateReview(review_id, review_text) {
       RETURNING *`;
     
     const result = await pool.query(sql, [review_text, review_id]);
+    return result.rowCount > 0; 
     
-    if (result.rowCount === 0) {
-      throw new Error("No rows were updated - review may not exist");
-    }
-    
-    return result.rows[0];
   } catch (error) {
     console.error("Database error in updateReview:", error);
     throw error;

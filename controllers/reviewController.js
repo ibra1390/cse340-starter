@@ -56,38 +56,49 @@ async function buildEditReview(req, res, next) {
 
 
 /* ***************************
- *  Update review
+ *  Update Review
  * ************************** */
 async function updateReview(req, res) {
   const { review_id, review_text } = req.body;
   const account_id = res.locals.accountData.account_id;
 
   try {
-    // 1. Verify review exists
+    // 1. Verify review exists and belongs to user (single check)
     const review = await reviewModel.getReviewById(review_id);
     if (!review) {
       req.flash("error", "Review not found");
       return res.redirect("/account/");
     }
-
-    // 2. Verify ownership
+    
     if (review.account_id !== account_id) {
       req.flash("error", "You can only edit your own reviews");
       return res.redirect("/account/");
     }
 
-    // 3. Perform update
-    await reviewModel.updateReview(review_id, review_text);
+    // 2. Perform update
+    const updateResult = await reviewModel.updateReview(review_id, review_text);
+    
+    if (!updateResult) {
+      throw new Error("Database update failed");
+    }
 
-    // 4. Success - Usar "success" en lugar de "notice" para consistencia
-    req.flash("success", "Review updated successfully!");
-    return res.redirect("/account/");
+    // 3. Success - Ensure session is saved before redirect
+    req.session.save(() => {
+      req.flash("success", "Review updated successfully!");
+      res.redirect("/account/");
+    });
 
   } catch (error) {
     console.error("Update error:", error);
-    req.flash("error", "Failed to update review: " + error.message);
     
-    let nav = await utilities.getNav();
+    // Handle different error cases
+    if (error.message.includes("Database")) {
+      req.flash("error", "Database error occurred");
+      return res.redirect("/account/");
+    }
+    
+    // Return to edit form with errors
+    const nav = await utilities.getNav();
     return res.render("review/edit-review", {
       title: "Edit Review",
       nav,
