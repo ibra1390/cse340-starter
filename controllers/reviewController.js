@@ -111,16 +111,78 @@ async function updateReview(req, res) {
 }
 
 /* ***************************
+ *  Deliver delete confirmation view
+ * ************************** */
+async function buildDeleteReview(req, res, next) {
+  try {
+    const review_id = parseInt(req.params.review_id);
+    console.log("Building delete view for review ID:", review_id); // Log de depuración
+    
+    if (isNaN(review_id)) {
+      req.flash("error", "Invalid review ID");
+      return res.redirect("/account/");
+    }
+
+    let nav = await utilities.getNav();
+    const review = await reviewModel.getReviewById(review_id);
+    
+    console.log("Retrieved review:", review); // Log de depuración
+    
+    if (!review) {
+      req.flash("error", "Review not found");
+      return res.redirect("/account/");
+    }
+    
+    // Verificar propiedad
+    if (review.account_id !== res.locals.accountData.account_id) {
+      req.flash("error", "You can only delete your own reviews");
+      return res.redirect("/account/");
+    }
+    
+    res.render("review/delete-review", {
+      title: "Delete Review",
+      nav,
+      errors: null,
+      review_id: review.review_id,
+      review_text: review.review_text,
+      review_date: review.review_date,
+      inv_id: review.inv_id,
+      inv_make: review.inv_make,
+      inv_model: review.inv_model,
+      inv_year: review.inv_year,
+      account_id: review.account_id
+    });
+  } catch (error) {
+    console.error("Error in buildDeleteReview:", error);
+    req.flash("error", "Error loading review");
+    res.redirect("/account/");
+  }
+}
+
+/* ***************************
  *  Delete review
  * ************************** */
 async function deleteReview(req, res) {
-  const review_id = req.params.review_id;
-  const account_id = res.locals.accountData.account_id;
-  
   try {
-    // Verify the review belongs to the logged-in user
+    // Asegúrate de parsear correctamente el ID
+    const review_id = parseInt(req.body.review_id);
+    
+    console.log("Attempting to delete review ID:", review_id); // Debug
+    
+    if (isNaN(review_id)) {
+      req.flash("error", "Invalid review ID");
+      return res.redirect("/account/");
+    }
+
+    const account_id = res.locals.accountData.account_id;
     const review = await reviewModel.getReviewById(review_id);
-    if (!review || review.account_id !== account_id) {
+    
+    if (!review) {
+      req.flash("error", "Review not found");
+      return res.redirect("/account/");
+    }
+    
+    if (review.account_id !== account_id) {
       req.flash("error", "You can only delete your own reviews");
       return res.redirect("/account/");
     }
@@ -135,8 +197,8 @@ async function deleteReview(req, res) {
     
     res.redirect("/account/");
   } catch (error) {
-    console.error("Delete error:", error);
-    req.flash("error", "Failed to delete review: " + error.message);
+    console.error("Full delete error:", error);
+    req.flash("error", "Error deleting review");
     res.redirect("/account/");
   }
 }
@@ -145,5 +207,6 @@ module.exports = {
   addReview,
   buildEditReview,
   updateReview,
+  buildDeleteReview,
   deleteReview
 };

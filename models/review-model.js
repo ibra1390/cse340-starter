@@ -75,11 +75,16 @@ async function updateReview(review_id, review_text) {
  * ************************** */
 async function deleteReview(review_id) {
   try {
+    console.log("Deleting review with ID:", review_id); // Debug
+    
     const sql = "DELETE FROM review WHERE review_id = $1 RETURNING *";
     const result = await pool.query(sql, [review_id]);
+    
+    console.log("Delete result:", result.rowCount); // Debug
+    
     return result.rowCount > 0;
   } catch (error) {
-    console.error("Error deleting review:", error);
+    console.error("Database error in deleteReview:", error);
     throw error;
   }
 }
@@ -89,15 +94,27 @@ async function deleteReview(review_id) {
  * ************************** */
 async function getReviewById(review_id) {
   try {
+    console.log("Executing query to get review by ID:", review_id); // Log de depuración
+    
     const sql = `
-      SELECT r.*, a.account_firstname, a.account_lastname 
+      SELECT r.*, a.account_firstname, a.account_lastname,
+             i.inv_make, i.inv_model, i.inv_year
       FROM review r
       JOIN account a ON r.account_id = a.account_id
+      JOIN inventory i ON r.inv_id = i.inv_id
       WHERE r.review_id = $1`;
+    
     const result = await pool.query(sql, [review_id]);
+    console.log("Query result:", result.rows); // Log de depuración
+    
+    if (result.rows.length === 0) {
+      console.log("No review found for ID:", review_id);
+      return null;
+    }
+    
     return result.rows[0];
   } catch (error) {
-    console.error("Error getting review by ID:", error);
+    console.error("Database error in getReviewById:", error);
     throw error;
   }
 }

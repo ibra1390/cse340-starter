@@ -1,0 +1,51 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } %>
+
+<%- messages() %>
+
+<div class="delete-confirmation">
+  <p class="warning-notice">Confirm Deletion - This action cannot be undone.</p>
+  
+  <form action="/review/delete" method="POST" class="review-form">
+    <input type="hidden" name="review_id" value="<%= review_id %>">
+    
+    <div class="review-display">
+      <div class="form-group">
+        <label>Review Text:</label>
+        <div class="review-content">
+          <%= review_text %>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Vehicle:</label>
+        <div class="vehicle-info">
+          <%= inv_make %> <%= inv_model %> (<%= inv_year %>)
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Date Posted:</label>
+        <div class="review-date">
+          <%= new Date(review_date).toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          }) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-btn delete-btn">Delete Review</button>
+      <a href="/account/" class="cancel-btn">Cancel</a>
+    </div>
+
+    <input type="hidden" name="review_id" value="<%= review_id %>">
+    <input type="hidden" name="inv_id" value="<%= inv_id %>">
+    <input type="hidden" name="account_id" value="<%= account_id %>">
+  </form>
+</div>

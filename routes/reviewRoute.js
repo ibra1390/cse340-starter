@@ -29,9 +29,20 @@ router.post(
   utilities.handleErrors(reviewController.updateReview)
 );
 
-// Delete review
+// Deliver delete view
 router.get(
   "/delete/:review_id",
+  utilities.checkLogin,
+  (req, res, next) => {
+    console.log("Delete route hit with ID:", req.params.review_id); // Log de depuración
+    next();
+  },
+  utilities.handleErrors(reviewController.buildDeleteReview)
+);
+
+// Delete review
+router.post(
+  "/delete",
   utilities.checkLogin,
   utilities.handleErrors(reviewController.deleteReview)
 );
