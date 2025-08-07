@@ -46,7 +46,8 @@ async function buildEditReview(req, res, next) {
       nav,
       errors: null,
       review_id: review.review_id,
-      review_text: review.review_text
+      review_text: review.review_text,
+      inv_id: review.inv_id
     });
   } catch (error) {
     req.flash("error", "Review not found");
