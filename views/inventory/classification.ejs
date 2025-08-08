@@ -38,10 +38,17 @@
   <% if (loggedin) { %>
     <section class="add-review-section">
       <h3>Add Your Review</h3>
+      <%- messages() %> 
       <form action="/review/add" method="post" class="review-form">
         <input type="hidden" name="inv_id" value="<%= inv_id %>">
         <div class="form-group">
-          <textarea name="review_text" id="review_text" required minlength="10" placeholder="Write your review here..."></textarea>
+          <textarea 
+            name="review_text" 
+            id="review_text" 
+            required 
+            minlength="10" 
+            placeholder="Write your review here...">
+          </textarea>
         </div>
         <button type="submit" class="submit-btn">Submit Review</button>
       </form>
