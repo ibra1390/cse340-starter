@@ -99,16 +99,9 @@ async function getReviewById(review_id) {
       WHERE r.review_id = $1`;
     
     const result = await pool.query(sql, [review_id]);
-    console.log("Query result:", result.rows); // Log de depuración
-    
-    if (result.rows.length === 0) {
-      console.log("No review found for ID:", review_id);
-      return null;
-    }
-    
-    return result.rows[0];
+    return result.rows[0]; 
   } catch (error) {
-    console.error("Database error in getReviewById:", error);
+    console.error("Error in getReviewById:", error);
     throw error;
   }
 }

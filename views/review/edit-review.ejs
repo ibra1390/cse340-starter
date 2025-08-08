@@ -14,14 +14,13 @@
       id="review_text" 
       required
       minlength="10"
-      class="<%= (errors && errors.find(e => e.param === 'review_text')) ? 'is-invalid' : '' %>"
-    ><%= review_text %></textarea>
-    <% if (errors && errors.find(e => e.param === 'review_text')) { %>
+      class="<%= (typeof messages !== 'undefined' && messages.error) ? 'is-invalid' : '' %>"
+    ><%= typeof review_text !== 'undefined' ? review_text : '' %></textarea>
+    <div class="form-hint">Review must be at least 10 characters long</div>
+    <% if (typeof messages !== 'undefined' && messages.error) { %>
       <div class="invalid-feedback">
-        <%= errors.find(e => e.param === 'review_text').msg %>
+        <%= messages.error %>
       </div>
-    <% } else { %>
-      <small class="form-text text-muted">Minimum 10 characters required</small>
     <% } %>
   </div>
 

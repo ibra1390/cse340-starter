@@ -47,6 +47,7 @@ async function buildEditReview(req, res, next) {
       errors: null,
       review_id: review.review_id,
       review_text: review.review_text,
+      review_date: review.review_date,
       inv_id: review.inv_id
     });
   } catch (error) {
