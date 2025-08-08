@@ -2,6 +2,7 @@ const utilities = require('../utilities')
 const accountModel = require('../models/account-model')
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const reviewModel = require("../models/review-model");
 require("dotenv").config()
 
 /* ****************************************
@@ -129,14 +130,23 @@ async function accountLogin(req, res) {
 * Deliver account management view
 * *************************************** */
 async function buildManagement(req, res, next) {
-  let nav = await utilities.getNav()
-  res.render("account/account-management", {
-    title: "Account Management",
-    nav,
-    errors: null,
-    loggedin: res.locals.loggedin,       
-    accountData: res.locals.accountData
-  })
+  let nav = await utilities.getNav();
+  
+  try {
+    const reviews = await reviewModel.getReviewsByAccountId(res.locals.accountData.account_id);
+    
+    res.render("account/account-management", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      loggedin: res.locals.loggedin,
+      accountData: res.locals.accountData,
+      reviews: reviews.rows 
+    });
+  } catch (error) {
+    req.flash("error", "Error loading your reviews");
+    res.redirect("/account/login");
+  }
 }
 
 /* ****************************************

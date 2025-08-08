@@ -1,0 +1,31 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } %>
+
+<%- messages() %>
+
+<form action="/review/update" method="POST" class="review-form">
+  <input type="hidden" name="review_id" value="<%= review_id %>">
+  
+  <div class="form-group">
+    <label for="review_text">Review:</label>
+    <textarea 
+      name="review_text" 
+      id="review_text" 
+      required
+      minlength="10"
+      class="<%= (typeof messages !== 'undefined' && messages.error) ? 'is-invalid' : '' %>"
+    ><%= typeof review_text !== 'undefined' ? review_text : '' %></textarea>
+    <div class="form-hint">Review must be at least 10 characters long</div>
+    <% if (typeof messages !== 'undefined' && messages.error) { %>
+      <div class="invalid-feedback">
+        <%= messages.error %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="submit-btn">Update Review</button>
+    <a href="/account/" class="cancel-btn">Cancel</a>
+  </div>
+</form>

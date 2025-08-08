@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities");
+const reviewModel = require("../models/review-model");
 
 const invCont = {};
 
@@ -8,25 +9,30 @@ const invCont = {};
  * ************************** */
 invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId;
-  const data = await invModel.getInventoryByClassificationId(classification_id);
-  const grid = await utilities.buildClassificationGrid(data);
-  let nav = await utilities.getNav();
+  try {
+    const data = await invModel.getInventoryByClassificationId(classification_id);
+    const grid = await utilities.buildClassificationGrid(data);
+    let nav = await utilities.getNav();
 
-   if (!data || data.length === 0) {
+    if (!data || data.length === 0) {
+      return res.render("./inventory/classification", {
+        title: "NO VEHICLES FOUND",
+        nav,
+        grid: "No vehicles in this classification.",
+        reviews: [] 
+      });
+    }
+
+    const className = data[0].classification_name;
     res.render("./inventory/classification", {
-      title: "NO VEHICLES FOUND",
+      title: className + " vehicles",
       nav,
-      grid: "No vehicles in this classification.",
+      grid,
+      reviews: [] 
     });
-    return;
+  } catch (error) {
+    next(error);
   }
-
-  const className = data[0].classification_name;
-  res.render("./inventory/classification", {
-    title: className + " vehicles",
-    nav,
-    grid,
-  });
 };
 
 /* ***************************
@@ -39,10 +45,16 @@ invCont.buildByInvId = async function (req, res, next) {
     const car = data[0];
     const grid = await utilities.buildCarDetailScreen(car);
     const nav = await utilities.getNav();
+    const reviews = await reviewModel.getReviewsByInventoryId(inv_id);
+    
     res.render("./inventory/classification", {
       title: `${car.inv_year} ${car.inv_make} ${car.inv_model}`,
       nav,
       grid,
+      reviews: reviews.rows,
+      loggedin: res.locals.loggedin,
+      accountData: res.locals.accountData,
+      inv_id: car.inv_id
     });
   } catch (error) {
     next(error);
